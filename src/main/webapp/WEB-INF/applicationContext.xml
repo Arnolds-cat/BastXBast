@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="servizioAutenticazione" class="com.bastxbast.services.AuthenticationServiceEM" />
+
+<bean id="managerService" class="com.bastxbast.services.ManagerServiceEM" />
+
+<bean id="userService" class="com.bastxbast.services.UserServiceEM" />
+
+<bean id="skemaService" class="com.bastxbast.services.SkemaServiceEM" />
+
+<bean id="wbetService" class="com.bastxbast.services.WaitingBetServiceEM" />
+
+<bean id="resultBetService" class="com.bastxbast.services.ResultBetServiceEM" />
+
+<bean id="betService" class="com.bastxbast.services.BetServiceEM" />
+
+<bean id="adminBetService" class="com.bastxbast.services.AdminBetServiceEM" />
+
+<bean id="subbetService" class="com.bastxbast.services.SubbetServiceEM" />
+
+
+
+
+</beans>

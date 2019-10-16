@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+
+
+
+	<package name="default" extends="struts-default">
+		<action name="">
+			<result>/home.jsp</result>
+		</action>
+		<action name="login" class="com.bastxbast.action.LoginAction">
+			<result name="manager">/WEB-INF/manager/managerHome.jsp</result>
+			<result name="admin">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="input">home.jsp</result>
+			<result name="simple">home.jsp</result>
+		</action>
+
+		<action name="logout" class="com.bastxbast.action.LogoutAction">
+			<result name="success">home.jsp</result>
+		</action>
+
+		<action name="create-skema" class="com.bastxbast.action.CreateSkemaAction">
+			<result name="success">home.jsp</result>
+			<result name="input">home.jsp</result>
+		</action>
+	</package>
+
+	<package name="admin" namespace="/admin" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="authenticationAdminInterceptor"
+				class="com.bastxbast.interceptor.AuthenticationAdminInterceptor" />
+			<interceptor-stack name="nuovoStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authenticationAdminInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="nuovoStack" />
+		
+		<action name="get-user-skema" class="com.bastxbast.action.admin.GetUserSkemaAction">
+			<result name="success" type="chain">load-user-skema</result>
+			<result name="input">/WEB-INF/manager/managerHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="load-user-skema" class="com.bastxbast.action.admin.LoadUserSkemaAction">
+			<result name="success-1">/WEB-INF/admin/userSkema1.jsp</result>
+			<result name="success-2">/WEB-INF/admin/userSkema2.jsp</result>
+			<result name="success-3">/WEB-INF/admin/userSkema3.jsp</result>
+			<result name="success-new">/WEB-INF/admin/newSkema.jsp</result>
+			<result name="input">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="admin-home">
+			<result name="success">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="evaluate-bet" class="com.bastxbast.action.admin.EvaluateBetAction">
+			<result name="success" type="chain">get-bet-page</result>
+			<result name="input">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="other-execute-bet" class="com.bastxbast.action.admin.OtherExecuteBetAction">
+			<result name="success">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="input">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="check" class="com.bastxbast.action.admin.CheckAction">
+			<result name="success">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="input">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="delete-skema" class="com.bastxbast.action.admin.DeleteSkemaAction">
+			<result name="success">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="input">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="admin-request-bet" class="com.bastxbast.action.admin.AdminRequestBetAction">
+			<result name="success" type="chain">
+				<param name="actionName">load-user-skema</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">load-user-skema</param>
+			</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="add-skema" class="com.bastxbast.action.admin.AddSkemaAction">
+			<result name="success" type="chain">
+				<param name="actionName">load-user-skema</param>
+			</result>
+			<result name="input">/WEB-INF/admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="userSkema1">
+			<result name="success">/WEB-INF/admin/userSkema1.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="userSkema2">
+			<result name="success">/WEB-INF/admin/userSkema2.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="userSkema3">
+			<result name="success">/WEB-INF/admin/userSkema3.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="newSkema">
+			<result name="success">/WEB-INF/admin/newSkema.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="get-bet-page" class="com.bastxbast.action.admin.GetBetPageAction">
+			<result name="success">/WEB-INF/admin/betPage.jsp</result>
+			<result name="input">home.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+	</package>
+
+	<package name="json" namespace="/admin/json" extends="json-default">
+
+		<interceptors>
+			<interceptor name="authenticationAdminInterceptor"
+				class="com.bastxbast.interceptor.AuthenticationAdminInterceptor" />
+			<interceptor-stack name="nuovoStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authenticationAdminInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="nuovoStack" />
+
+		
+
+		<action name="edit-managers"
+			class="com.bastxbast.action.admin.json.EditManagersAction">
+			<result type="json" name="success">
+				<param name="location">admin/adminHome.jsp</param>
+				<param name="root">responseText</param>
+			</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="edit-users" class="com.bastxbast.action.admin.json.EditUsersAction">
+			<result type="json" name="success">
+				<param name="location">admin/adminHome.jsp</param>
+				<param name="root">responseText</param>
+			</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="get-managers"
+			class="com.bastxbast.action.admin.json.GetManagersAction">
+			<result type="json" name="success">admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="get-users" class="com.bastxbast.action.admin.json.GetUsersAction">
+			<result type="json" name="success">admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="get-resbet" class="com.bastxbast.action.admin.json.GetResbetAction">
+			<result type="json" name="success">admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="get-exbet" class="com.bastxbast.action.admin.json.GetExbetAction">
+			<result type="json" name="success">admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="get-delete-skema"
+			class="com.bastxbast.action.admin.json.GetDeleteSkemaAction">
+			<result type="json" name="success">admin/adminHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="edit-subbets"
+			class="com.bastxbast.action.admin.json.EditSubbetsAction">
+			<result type="json" name="success">
+				<param name="location">admin/betPage.jsp</param>
+				<param name="root">responseText</param>
+			</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+	</package>
+
+	<package name="json1" namespace="/manager/json" extends="json-default">
+
+		<interceptors>
+			<interceptor name="authenticationManagerInterceptor"
+				class="com.bastxbast.interceptor.AuthenticationManagerInterceptor" />
+			<interceptor-stack name="nuovoStack1">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authenticationManagerInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="nuovoStack1" />
+
+		<action name="get-users-from-manager"
+			class="com.bastxbast.action.manager.json.GetUsersFromManagerAction">
+			<result type="json" name="success">manager/managerHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="edit-users-from-manager"
+			class="com.bastxbast.action.manager.json.EditUsersFromManagerAction">
+			<result type="json" name="success">
+				<param name="location">manager/managerHome.jsp</param>
+				<param name="root">responseText</param>
+			</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="get-bets1" class="com.bastxbast.action.manager.json.GetBetsAction">
+			<result type="json" name="success">manager/userSkema1.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="get-bets2" class="com.bastxbast.action.manager.json.GetBetsAction">
+			<result type="json" name="success">manager/userSkema2.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="get-bets3" class="com.bastxbast.action.manager.json.GetBetsAction">
+			<result type="json" name="success">manager/userSkema3.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="get-subbets" class="com.bastxbast.action.manager.json.GetSubbetsAction">
+			<result type="json" name="success">/WEB-INF/manager/betPage.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+	</package>
+
+
+	<package name="manager" namespace="/manager" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="authenticationManagerInterceptor"
+				class="com.bastxbast.interceptor.AuthenticationManagerInterceptor" />
+			<interceptor-stack name="nuovoStack1">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authenticationManagerInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<action name="get-user-skema" class="com.bastxbast.action.manager.GetUserSkemaAction">
+			<result name="success" type="chain">load-user-skema</result>
+			<result name="input">/WEB-INF/manager/managerHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="load-user-skema" class="com.bastxbast.action.manager.LoadUserSkemaAction">
+			<result name="success-manager-1">/WEB-INF/manager/userSkema1.jsp</result>
+			<result name="success-manager-2">/WEB-INF/manager/userSkema2.jsp</result>
+			<result name="success-manager-3">/WEB-INF/manager/userSkema3.jsp</result>
+			<result name="success-manager-new">/WEB-INF/manager/newSkema.jsp</result>
+			<result name="success-admin-1">/WEB-INF/admin/userSkema1.jsp</result>
+			<result name="success-admin-2">/WEB-INF/admin/userSkema2.jsp</result>
+			<result name="success-admin-3">/WEB-INF/admin/userSkema3.jsp</result>
+			<result name="success-admin-new">/WEB-INF/admin/newSkema.jsp</result>
+			<result name="input">/WEB-INF/manager/managerHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="add-skema" class="com.bastxbast.action.manager.AddSkemaAction">
+			<result name="success" type="chain">
+				<param name="actionName">load-user-skema</param>
+			</result>
+			<result name="input">/WEB-INF/manager/managerHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="get-bet-page" class="com.bastxbast.action.manager.GetBetPageAction">
+			<result name="success">/WEB-INF/manager/betPage.jsp</result>
+			<result name="input">home.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="request-bet" class="com.bastxbast.action.manager.RequestBetAction">
+			<result name="success" type="chain">
+				<param name="actionName">load-user-skema</param>
+			</result>
+			<result name="input" type="chain">
+				<param name="actionName">load-user-skema</param>
+			</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="manager-home">
+			<result name="success">/WEB-INF/manager/managerHome.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="userSkema1">
+			<result name="success">/WEB-INF/manager/userSkema1.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="userSkema2">
+			<result name="success">/WEB-INF/manager/userSkema2.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="userSkema3">
+			<result name="success">/WEB-INF/manager/userSkema3.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+		
+		<action name="newSkema">
+			<result name="success">/WEB-INF/manager/newSkema.jsp</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+		<action name="delete-skema" class="com.bastxbast.action.manager.DeleteSkemaAction">
+			<result name="success" type="chain">load-user-skema</result>
+			<result name="login">home.jsp</result>
+		</action>
+
+	</package>
+
+
+
+
+
+</struts>
